@@ -54,4 +54,8 @@ In Kali Linux, you can run `apt install python3.11-venv` as the root user.
    bash run.sh
    ```
 
-Note: For the Google OAuth authentication, you will need to create a Google Client ID and Client Secret. Refer to the Google Developer Console documentation on how to create these credentials.
+Note: For Google OAuth authentication, you will need to create a Google client ID and a client secret. Refer to the Google developer console documentation for instructions on creating these credentials.
+
+As a reference, after configuring them correctly, upon logging in with Google, you should see something like this:
+
+![image](images/1.png)
