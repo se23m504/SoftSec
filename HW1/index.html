@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Password Generator</title>
+    <title>RegPassGen</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -63,6 +63,7 @@
             border-radius: 4px;
             box-sizing: border-box;
             background-color: #f9f9f9;
+            display: none;
         }
         .password {
             background-color: #f1f1f1;
@@ -76,13 +77,13 @@
 </head>
 <body>
     <div class="container">
-        <h1>Password Generator</h1>
+        <h1>Regex Password Generator</h1>
         <form id="passwordForm">
-            <label for="alphabetRegex">Alphabet Regex:</label>
+            <label for="alphabetRegex">Alphabet regex:</label>
             <input type="text" id="alphabetRegex" value="[a-zA-Z0-9]" required>
-            <label for="numPasswords">Number of Passwords (max 10):</label>
+            <label for="numPasswords">Number of passwords:</label>
             <input type="number" id="numPasswords" min="1" max="10" required>
-            <label for="passwordLength">Password Length:</label>
+            <label for="passwordLength">Password length:</label>
             <input type="number" id="passwordLength" min="1" max="128" value="8" required>
             <button type="submit">Generate</button>
         </form>
@@ -112,6 +113,8 @@
             for (let i = 0; i < numPasswords; i++) {
                 resultDiv.innerHTML += `<p class="password">${generatePassword(alphabet, passwordLength)}</p>`;
             }
+
+            resultDiv.style.display = numPasswords > 0 ? 'block' : 'none';
         });
 
         function regexToAlphabet(regex) {
