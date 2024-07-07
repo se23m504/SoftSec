@@ -33,14 +33,15 @@ In Kali Linux, you can run `apt install python3.11-venv` as the root user.
 
 ### Digest and Google
 
-
 1. Open the terminal.
 
 2. Navigate to the project directory:
 
    ```bash
-   cd SoftSec/HW4/basic
+   cd SoftSec/HW4/x
    ```
+
+   Replace `x` with either digest or google.
 
 3. Configure the `.env`:
 
