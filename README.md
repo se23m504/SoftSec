@@ -38,5 +38,4 @@ Challenge 3: Javascript / Cookie Catcher
 
 1. Write a "Cookie Catcher", Clientside: Javascript, Backend: PHP
 
-Save the cookie information to a log file
-Give examples how this attack could be prevented.
+Save the cookie information to a log file. Give examples how this attack could be prevented.
