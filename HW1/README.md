@@ -25,11 +25,9 @@ In Kali Linux, you can run `apt install python3.11-venv` as the root user.
    bash run.sh
    ```
 
-   This command will start a local web server on port 8000.
-
 ## Bypassing client-side limits
 
-The frontend (client-side) incorporates a validation check to ensure that no more than 10 passwords are requested at a time. If the user attempts to request more, an alert is displayed, and the form submission is prevented.
+The frontend incorporates a validation check to ensure that no more than 10 passwords are requested at a time. If the user attempts to request more, an alert is displayed, and the form submission is prevented.
 
 However, to demonstrate the insufficiency of client-side validation, we will bypass this limit using OWASP ZAP.
 
