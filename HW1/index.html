@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        h1 {
+            color: #333333;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #555555;
+        }
+        input[type=number], input[type=text] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+        }
+        .password {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            margin: 5px 0;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Password Generator</h1>
+        <form id="passwordForm">
+            <label for="alphabetRegex">Alphabet Regex:</label>
+            <input type="text" id="alphabetRegex" value="[a-zA-Z0-9]" required>
+            <label for="numPasswords">Number of Passwords (max 10):</label>
+            <input type="number" id="numPasswords" min="1" max="10" required>
+            <label for="passwordLength">Password Length:</label>
+            <input type="number" id="passwordLength" min="1" value="8" required>
+            <button type="submit">Generate</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('passwordForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const alphabetRegex = document.getElementById('alphabetRegex').value;
+            const numPasswords = document.getElementById('numPasswords').value;
+            const passwordLength = document.getElementById('passwordLength').value;
+            
+            // Client-side check
+            if (numPasswords > 10) {
+                alert("You cannot request more than 10 passwords!");
+                return;
+            }
+
+            const alphabet = regexToAlphabet(alphabetRegex);
+            if (!alphabet) {
+                alert("Invalid regex pattern!");
+                return;
+            }
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '';
+            for (let i = 0; i < numPasswords; i++) {
+                resultDiv.innerHTML += `<p class="password">${generatePassword(alphabet, passwordLength)}</p>`;
+            }
+        });
+
+        function regexToAlphabet(regex) {
+            const ranges = regex.match(/\[([^\]]+)\]/);
+            if (!ranges) {
+                return null;
+            }
+
+            const rangeStr = ranges[1];
+            let alphabet = '';
+            for (let i = 0; i < rangeStr.length; i++) {
+                const start = rangeStr[i];
+                if (i + 2 < rangeStr.length && rangeStr[i + 1] === '-') {
+                    const end = rangeStr[i + 2];
+                    for (let charCode = start.charCodeAt(0); charCode <= end.charCodeAt(0); charCode++) {
+                        alphabet += String.fromCharCode(charCode);
+                    }
+                    i += 2;
+                } else {
+                    alphabet += start;
+                }
+            }
+            return alphabet;
+        }
+
+        function generatePassword(alphabet, length) {
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                password += alphabet[Math.floor(Math.random() * alphabet.length)];
+            }
+            return password;
+        }
+    </script>
+</body>
+</html>
