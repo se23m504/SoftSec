@@ -93,59 +93,49 @@
     <script>
         document.getElementById('passwordForm').addEventListener('submit', function(event) {
             event.preventDefault();
-            const alphabetRegex = document.getElementById('alphabetRegex').value;
-            const numPasswords = document.getElementById('numPasswords').value;
-            const passwordLength = document.getElementById('passwordLength').value;
             
-            if (numPasswords > 10) {
+            var formData = {
+                alphabetRegex: document.getElementById('alphabetRegex').value,
+                numPasswords: document.getElementById('numPasswords').value,
+                passwordLength: document.getElementById('passwordLength').value
+            };
+            
+            if (formData.numPasswords > 10) {
                 alert("You cannot request more than 10 passwords!");
                 return;
             }
 
-            const alphabet = regexToAlphabet(alphabetRegex);
-            if (!alphabet) {
-                alert("Invalid regex pattern!");
-                return;
-            }
-
-            const resultDiv = document.getElementById('result');
-            resultDiv.innerHTML = '';
-            for (let i = 0; i < numPasswords; i++) {
-                resultDiv.innerHTML += `<p class="password">${generatePassword(alphabet, passwordLength)}</p>`;
-            }
-
-            resultDiv.style.display = numPasswords > 0 ? 'block' : 'none';
+            fetch('http://localhost:8000/generate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                displayPasswords(data.passwords);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
         });
 
-        function regexToAlphabet(regex) {
-            const ranges = regex.match(/\[([^\]]+)\]/);
-            if (!ranges) {
-                return null;
-            }
+        function displayPasswords(passwords) {
+            var resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = '';
 
-            const rangeStr = ranges[1];
-            let alphabet = '';
-            for (let i = 0; i < rangeStr.length; i++) {
-                const start = rangeStr[i];
-                if (i + 2 < rangeStr.length && rangeStr[i + 1] === '-') {
-                    const end = rangeStr[i + 2];
-                    for (let charCode = start.charCodeAt(0); charCode <= end.charCodeAt(0); charCode++) {
-                        alphabet += String.fromCharCode(charCode);
-                    }
-                    i += 2;
-                } else {
-                    alphabet += start;
-                }
+            if (passwords.length > 0) {
+                resultDiv.style.display = 'block';
+                passwords.forEach(function(password) {
+                    var p = document.createElement('p');
+                    p.className = 'password';
+                    p.textContent = password;
+                    resultDiv.appendChild(p);
+                });
+            } else {
+                resultDiv.style.display = 'none';
             }
-            return alphabet;
-        }
-
-        function generatePassword(alphabet, length) {
-            let password = '';
-            for (let i = 0; i < length; i++) {
-                password += alphabet[Math.floor(Math.random() * alphabet.length)];
-            }
-            return password;
         }
     </script>
 </body>
