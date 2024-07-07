@@ -4,6 +4,8 @@
 
 Write a small web application in the language of your choice. Your application should  be able to calculate a given number of passwords out of a predefined alphabet and has a limit of 10 passwords per run. Implement client side checks (not backend) to ensure that limit and try to bypass your limit with OWASP ZAP Attack Proxy.
 
+[HW1](HW1/README.md)
+
 ## HW2
 
 Server: http://haklab-n1.cs.technikum-wien.at/sql
@@ -14,6 +16,8 @@ Find all information about the following properties in the SQL server:
 2. username, password
 3. svnr, protected, license, salery, hobbies
 4. database version, current user, server version
+
+[HW2](HW2/README.md)
 
 ## HW3
 
@@ -39,3 +43,15 @@ Challenge 3: Javascript / Cookie Catcher
 1. Write a "Cookie Catcher", Clientside: Javascript, Backend: PHP
 
 Save the cookie information to a log file. Give examples how this attack could be prevented.
+
+[HW3](HW3/README.md)
+
+## HW4
+
+Implement a small web application which has three possible types of authentication:
+
+1. Login via form (username, password)
+2. HTTP digest authentication
+3. Authentication via a Google account
+
+[HW4](HW4/README.md)
