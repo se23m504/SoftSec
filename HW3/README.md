@@ -62,3 +62,11 @@ You will receive a request similar to this on your PHP server:
 `[Sun Jul  7 15:37:14 2024] 127.0.0.1:48536 [200]: GET /cookie.php?cookie=PHPSESSID%3Duh0o7tbpta72h7am76rssllpae`
 
 And the file `cookies.log` will be created with the cookie.
+
+### Prevention
+
+- Input validation and sanitization.
+- Whitelist/blacklist certain characters in user inputs.
+- Use HTTPOnly cookies to prevent client-side scripts from capturing cookies.
+- Use Content Security Policy (CSP) headers to restrict the sources from which the website can load content.
+- Conduct regular security audits.
